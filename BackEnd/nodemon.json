@@ -1,0 +1,9 @@
+{
+    "env": {
+        "SQL_SERVER_IP": "192.168.56.101",
+        "NODE_SERVER_URL": "http://localhost:5000",
+        "JWT_KEY": "Un1-5;S5-fssa38s02i990eS$$t.",
+        "AUTH_EMAIL": "unifiest@gmail.com",
+        "AUTH_PASS": "jdid vnum mxql gkoq"
+    }
+}
