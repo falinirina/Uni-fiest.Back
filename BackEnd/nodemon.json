@@ -1,9 +1,9 @@
 {
     "env": {
-        "SQL_SERVER_IP": "192.168.56.101",
+        "POSTGRESL": "PGSL Address",
         "NODE_SERVER_URL": "http://localhost:5000",
-        "JWT_KEY": "Un1-5;S5-fssa38s02i990eS$$t.",
-        "AUTH_EMAIL": "unifiest@gmail.com",
-        "AUTH_PASS": "jdid vnum mxql gkoq"
+        "JWT_KEY": "JWT Key",
+        "AUTH_EMAIL": "Mail user",
+        "AUTH_PASS": "Mail password"
     }
 }

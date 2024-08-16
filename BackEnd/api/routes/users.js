@@ -13,6 +13,7 @@ const transporter = nodemailer.createTransport({
         pass: process.env.AUTH_PASS
     }
 })
+
 transporter.verify((error, success) => {
     if (error) {
         console.log(error);
@@ -24,15 +25,10 @@ transporter.verify((error, success) => {
 
 // Authentification
 const checkAuth = require("../middleware/check-auth");
-const checkAuthAdmin = require("../middleware/check-auth-admin")
 
 function error(res, err) {
     return res.status(500).json({ error: err });
 }
-
-router.post("/verify-token-admin", checkAuth, (req, res, next) => {
-    res.status(200).json({message: "Success"})
-})
 
 router.post("/verify-token", checkAuth, (req, res, next) => {
     res.status(200).json({message: "Success", data: req.userData.userType })
@@ -241,64 +237,6 @@ router.post("/verify-OTP", (req, res, next) => {
         error(res, error2)
     }
 })
-
-router.post("/signup", checkAuthAdmin, (req, res, next) => {
-    User.findOne({ where: { emailUser: req.body.email } })
-        .then((result) => {
-            if (result == null) {
-                bcrypt.hash(req.body.password, 10, (err, hash) => {
-                    if (err) {
-                        error(res, err);
-                    } else {
-                        User.create({
-                            nomUser: req.body.nom,
-                            prenomUser: req.body.prenom,
-                            emailUser: req.body.email,
-                            passUser: hash,
-                            roleUser: req.body.role,
-                        })
-                            .then((result2) => {
-                                res.status(201).json({ result: result2 });
-                            })
-                            .catch((err) => {
-                                error(res, err);
-                            });
-                    }
-                });
-            } else {
-                res.status(200).json({
-                    message: "Email already existe",
-                });
-            }
-        })
-        .catch((err) => {
-            res.status(500).json({ error: err });
-        });
-});
-
-router.get("/", checkAuthAdmin, (req, res, next) => {
-    const user = req.userData.idUser;
-    User.findOne({ where: { idUser: user } })
-        .then((result) => {
-            // console.log(result);
-            res.status(200).json({ result: result });
-        })
-        .catch((err) => {
-            res.status(500).json({ error: err });
-        });
-});
-
-router.get("/all", checkAuthAdmin, (req, res, next) => {
-    User.findAll()
-        .then((result) => {
-            // console.log(result);
-            res.status(200).json({ result: result });
-        })
-        .catch((err) => {
-            res.status(500).json({ error: err });
-        });
-});
-
 
 const sendOTPVerificationEmail = (id, email, device, res) => {
     try {

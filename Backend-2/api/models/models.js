@@ -1,7 +1,6 @@
 const { Sequelize, DataTypes, Model, TIME, UUID } = require("sequelize");
-const { sleep } = require("../functions/sleep");
 
-const sequelize = new Sequelize("postgresql://postgres.zumzilddcvbjtheotdtk:QICO8Z3AXB4Oh9jFs9A4zSGeJ@aws-0-eu-central-1.pooler.supabase.com:6543/postgres")
+const sequelize = new Sequelize(process.env.POSTGRESL)
 
 class User extends Model {}
 User.init(

@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-const path = require("path")
 
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -31,7 +30,6 @@ app.use((req, res, next) => {
 
 app.use("/api/users", userRoutes)
 app.use("/api/tickets", ticketRoutes)
-app.use("/api/qr", express.static(path.join(__dirname, "qr")));
 
 // Error Handling
 app.use((req, res, next) => {
@@ -40,7 +38,6 @@ app.use((req, res, next) => {
 
     next(error);
 });
-
 
 // Routes which should handle request
 app.use((error, req, res, next) => {
